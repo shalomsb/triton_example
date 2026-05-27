@@ -2,18 +2,11 @@
 
 External gRPC client for `yolo11x_ensemble`. Runs on the host, no Docker.
 
-## Setup
+## Setup & Run
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-```
-
-## Run
-
-```bash
-python client.py --image dog.jpg --url localhost:8001 --out output.jpg
+cd client
+uv run client.py --image dog.jpg --url localhost:8001 --out output.jpg
 ```
 
 ## Server health check
