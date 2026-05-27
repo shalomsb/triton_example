@@ -1,0 +1,51 @@
+name: "yolo11x_postprocess"
+backend: "python"
+max_batch_size: 8
+
+input [
+  {
+    name: "RAW_OUTPUT"
+    data_type: TYPE_FP32
+    dims: [ 84, 8400 ]
+  },
+  {
+    name: "SCALE_INFO"
+    data_type: TYPE_FP32
+    dims: [ 4 ]
+  }
+]
+
+output [
+  {
+    name: "DETECTIONS"
+    data_type: TYPE_FP32
+    dims: [ -1, 6 ]
+  },
+  {
+    name: "NUM_DETECTIONS"
+    data_type: TYPE_INT32
+    dims: [ 1 ]
+  }
+]
+
+instance_group [
+  {
+    count: 2
+    kind: KIND_CPU
+  }
+]
+
+parameters [
+  {
+    key: "CONF_THRESHOLD"
+    value: { string_value: "0.25" }
+  },
+  {
+    key: "IOU_THRESHOLD"
+    value: { string_value: "0.45" }
+  },
+  {
+    key: "MAX_DETECTIONS"
+    value: { string_value: "300" }
+  }
+]
